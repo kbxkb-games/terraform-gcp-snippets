@@ -38,6 +38,7 @@ resource "google_container_cluster" "primary" {
   # node pool and immediately delete it.
   remove_default_node_pool = true
   initial_node_count       = 1
+  default_max_pods_per_node = 4
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
@@ -45,6 +46,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   location   = "us-central1"
   cluster    = google_container_cluster.primary.name
   node_count = 1
+  max_pods_per_node = 4
 
   node_config {
     preemptible  = true
