@@ -45,7 +45,6 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "my-node-pool"
   location   = "us-central1"
   cluster    = google_container_cluster.primary.name
-  node_count = 1
   max_pods_per_node = 4
 
   node_config {
@@ -56,5 +55,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+  }
+
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 10
   }
 }
